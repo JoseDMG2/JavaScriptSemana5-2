@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>F12</h1>
+    <script>
+        //Crear un objeto para representar a un estudiante
+        class Estudiante {
+            constructor(nombre, calificaciones) {
+                this.nombre = nombre;
+                this.calificaciones = calificaciones;
+            }
+
+        //Método para calcular el promedio de las calificaciones del estudiante
+        obtenerPromedio(){
+            const suma = this.calificaciones.reduce((acc, calificaciones) => acc + calificaciones, 0);
+            return suma / this.calificaciones.length;
+        }
+        }
+
+        //Crear un arreglo para almacenar los estudiantes
+        let estudiantes = [
+            new Estudiante('Ana', [8, 9, 7, 6]),
+            new Estudiante('Luis', [5, 6, 7, 8]),
+            new Estudiante('María', [9, 10, 10, 8]),
+            new Estudiante('Juan', [10, 8, 10, 9]),
+            new Estudiante('Jose', [5, 5, 6, 7]),
+            new Estudiante('Diego', [6, 7, 6, 7]),
+            new Estudiante('Jean', [4, 4, 5, 8]),
+            new Estudiante('Joseph', [8, 7, 9, 8]),
+            new Estudiante('Angi', [6, 8, 9, 10]),
+        ]
+
+        //Función para calcular el promedio general de todos los estudiantes
+        function calcularPromedioGeneral(estudiantes) {
+            const sumaPromedios = estudiantes.reduce((acc, estudiante) => acc + estudiante.obtenerPromedio(), 0);
+            return sumaPromedios / estudiantes.length;
+        }
+
+        //Función para obtener estudiantes con calificaciones superiores al promedio general
+        function obtenerEstudiantesPorEncimaDelPromedio(estudiantes, promedioGeneral) {
+            return estudiantes.filter(estudiante => estudiante.obtenerPromedio() > promedioGeneral);
+        }
+
+        //Funcion para obtener estudiantes con calificaciones inferiores al promedio general
+        function obtenerEstudiantesPorDebajoDelPromedio(estudiantes, promedioGeneral) {
+            return estudiantes.filter(estudiante => estudiante.obtenerPromedio() < promedioGeneral);
+        }
+
+        //Uso del código
+        let promedioGeneral = calcularPromedioGeneral(estudiantes);
+        console.log("Promedio general de todos los estudiantes:", promedioGeneral.toFixed(2));
+
+
+        let estudiantesNoDestacados= obtenerEstudiantesPorDebajoDelPromedio(estudiantes, promedioGeneral);
+        console.log("Estudiantes con promedio inferior al promedio general: ");
+        estudiantesNoDestacados.forEach(estudiante => {
+            console.log(`${estudiante.nombre} - Promedio: ${estudiante.obtenerPromedio().toFixed(2)}`);
+        });
+
+        let estudiantesDestacados = obtenerEstudiantesPorEncimaDelPromedio(estudiantes, promedioGeneral);
+        console.log("Estudiantes con promedio superior al promedio general: ");
+        estudiantesDestacados.forEach(estudiante => {
+            console.log(`${estudiante.nombre} - Promedio: ${estudiante.obtenerPromedio().toFixed(2)}`);
+        });
+    </script>
+</body>
+</html>
